@@ -10,7 +10,7 @@ mkdir -p /var/www/html
 
 cd /var/www/html
 
-chmod -R /var/www/html
+chmod -R 755 /var/www/html
 
 sed -i 's|listen = .*|listen = 9000|' /etc/php/7.4/fpm/pool.d/www.conf
 
@@ -24,7 +24,7 @@ for ((i = 0; i < 10; i++)); do
         break
     else
         echo "MariaDB not ready ... ($i)"
-        sleep 3;
+        sleep 3
     fi
 done
 
@@ -39,15 +39,15 @@ wp config create \
 
 wp core install \
     --url="${DOMAIN_NAME}" \
-    --titl="${WP_TITLE}" \
+    --title="${WP_TITLE}" \
     --admin_user="${WP_A_NAME}" \
     --admin_password="${WP_A_PASS}" \
-    --admin_email= "${WP_A_EMAIL}" \
+    --admin_email="${WP_A_EMAIL}" \
     --allow-root 
 
 wp user create "${WP_U_NAME}" "${WP_A_EMAIL}" \
     --user_pass="${WP_A_PASS}" \
-    --role= "${WP_A_ROLE}" \
+    --role="${WP_A_ROLE}" \
     --allow-root
 
-chown -R www-date"www-date /var/www/html
+chown -R www-date:www-date /var/www/html
