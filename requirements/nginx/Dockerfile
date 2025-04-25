@@ -11,7 +11,7 @@ RUN openssl req -x509 -nodes -days 300 -newkey rsa:2048 \
 
 RUN rm -f /etc/nginx/ningx.conf
 
-COPY mv ./tools/ningx.conf /etc/nginx/
+COPY mv ./tools/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 443
 
