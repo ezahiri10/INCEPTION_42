@@ -19,7 +19,8 @@ echo "Waiting MariaDb ...."
 for ((i = 0; i < 10; i++)); do
     if mariadb -h mariadb -P 3306 \
         -u "${WP_DB_USER}" \
-        -p "${WP_DB_PASSWORD}"
+        -p "${WP_DB_PASSWORD}" \
+        -e "SELECT 1;" &> /dev/null; then \
         echo "Mariadb UP!"
         break
     else
