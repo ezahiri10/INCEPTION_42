@@ -9,10 +9,10 @@ RUN openssl req -x509 -nodes -days 300 -newkey rsa:2048 \
     -out /etc/nginx/ssl/nginx.crt \
     -subj "/C=MO/ST=KH/O=42/OU=42/CN=ezahiri.42.fr"
 
-RUN rm -f /etc/nginx/ningx.conf
+RUN rm -f /etc/nginx/nginx.conf
 
 COPY ./tools/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 443
 
-CMD ["nginx", "-g", "deamon off;"]
+CMD ["nginx", "-g", "daemon off;"]
