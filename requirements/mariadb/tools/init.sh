@@ -13,7 +13,6 @@ mariadb -u root -e "CREATE USER IF NOT EXISTS '${MYSQL_USER_NAME}'@'%' IDENTIFIE
 mariadb -u root -e "GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USER_NAME}'@'%';"
 mariadb -u root -e "FLUSH PRIVILEGES;"
 
-mysqladmin -u root shutdown
+mysqladmin shutdown -u root
 
-
-exec mariadbd
+mysqld --bind-address=0.0.0.0 --port=3306 --user=root # this important XXX

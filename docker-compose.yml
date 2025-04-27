@@ -36,6 +36,7 @@ services:
         - "443:443"
 volumes:
   wordpress_volume:
+    # name: "wordpress_volume"
     driver: local
     driver_opts:
       type: none
@@ -43,6 +44,7 @@ volumes:
       device: /home/zahiri/data/wordpress
   
   mariadb_volume:
+    # name: "mariadb_volume"
     driver: local
     driver_opts:
       type: none
@@ -51,4 +53,5 @@ volumes:
   
 networks:
   inception:
+    name: "inception"
     driver: bridge

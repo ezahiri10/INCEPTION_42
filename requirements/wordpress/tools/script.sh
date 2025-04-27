@@ -12,7 +12,7 @@ cd /var/www/html
 
 chmod -R 755 /var/www/html
 
-sed -i 's|listen = .*|listen = 9000|' /etc/php/7.4/fpm/pool.d/www.conf
+sed -i '36 s/\/run\/php\/php7.4-fpm.sock/9000/' /etc/php/7.4/fpm/pool.d/www.conf #XXX
 
 until mariadb -h mariadb -P 3306 -u "${MYSQL_USER_NAME}" -p"${MYSQL_USER_PASS}" -e \
     "SELECT 1;" &> /dev/null; do
@@ -40,11 +40,13 @@ wp core install \
     --admin_email="${WP_A_EMAIL}" \
     --allow-root 
 
-wp user create "${WP_U_NAME}" "${WP_A_EMAIL}" \
-    --user_pass="${WP_A_PASS}" \
-    --role="${WP_A_ROLE}" \
-    --allow-root
+wp user create "${WP_U_NAME}" "${WP_U_EMAIL}" \ 
+    --user_pass="${WP_U_PASS}" \
+    --role="${WP_U_ROLE}" \
+    --allow-root #change U by A XXX
 
-chown -R www-data:www-data /var/www/html
+chown -R www-data:www-data /var/www/html #XXX
+chmod 755 -R /var/www/html #XXX
 
-exec php-fpm -F
+mkdir -p /run/php #XXX
+/usr/sbin/php-fpm7.4 -F #XXX
