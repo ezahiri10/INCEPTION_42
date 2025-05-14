@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
 RUN apt update && apt install -y php7.4-fpm php-mysql curl mariadb-client 
 #XXX php7.4-fpm to php-fpm not problem 

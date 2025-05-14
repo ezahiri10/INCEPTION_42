@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 chmod +x wp-cli.phar
@@ -12,7 +13,7 @@ cd /var/www/html
 
 chmod -R 755 /var/www/html
 
-sed -i '36 s/\/run\/php\/php7.4-fpm.sock/9000/' /etc/php/7.4/fpm/pool.d/www.conf #XXX
+sed -i '36 s/\/run\/php\/php7.4-fpm.sock/9000/' /etc/php/7.4/fpm/pool.d/www.conf 
 
 until mariadb -h mariadb -P 3306 -u "${MYSQL_USER_NAME}" -p"${MYSQL_USER_PASS}" -e \
     "SELECT 1;" &> /dev/null; do
@@ -43,10 +44,15 @@ wp core install \
 wp user create "${WP_U_NAME}" "${WP_U_EMAIL}" \ 
     --user_pass="${WP_U_PASS}" \
     --role="${WP_U_ROLE}" \
-    --allow-root #change U by A XXX
+    --allow-root
 
-chown -R www-data:www-data /var/www/html #XXX
-chmod 755 -R /var/www/html #XXX
+wp plugin install radias-cache --activate  --allow-root
+wp config set WP_REDIS_HOST 'redis' --type=constant --allow-root
+wp config set WP_REDIS_PORT '6379' --type=constant --allow-root
+wp redis enable
 
-mkdir -p /run/php #XXX
-/usr/sbin/php-fpm7.4 -F #XXX
+chown -R www-data:www-data /var/www/html 
+chmod 755 -R /var/www/html 
+
+mkdir -p /run/php 
+/usr/sbin/php-fpm7.4 -F 

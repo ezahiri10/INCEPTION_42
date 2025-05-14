@@ -1,57 +1,51 @@
 version: '3.8'
 
 services:
-    mariadb:
-      build: ./requirements/mariadb/
-      container_name: mariadb
-      restart: always
-      env_file: .env
-      volumes:
-        - mariadb_volume:/var/lib/mysql
-      networks:
-        - inception
-    wordpress:
-      build: ./requirements/wordpress/
-      container_name: wordpress
-      restart : always
-      env_file: .env
-      volumes:
-        - wordpress_volume:/var/www/html
-      depends_on :
-        - mariadb
-      networks:
-        - inception
-    nginx:
-      build: ./requirements/nginx/
-      container_name : nginx
-      restart: always
-      env_file: .env
-      volumes:
-        - wordpress_volume:/var/www/html
-      depends_on :
-        - wordpress
-      networks :
-        - inception
-      ports:
-        - "443:443"
-volumes:
-  wordpress_volume:
-    # name: "wordpress_volume"
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/zahiri/data/wordpress
-  
-  mariadb_volume:
-    # name: "mariadb_volume"
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/zahiri/data/mariadb
-  
+  mariadb:
+    build: ./requirements/mariadb/
+    container_name: mariadb
+    restart: always
+    env_file: .env
+    volumes:
+      - type: bind
+        source: /home/zahiri/data/mariadb
+        target: /var/lib/mysql
+    networks:
+      - inception
+
+  wordpress:
+    build: ./requirements/wordpress/
+    container_name: wordpress
+    restart: always
+    env_file: .env
+    volumes:
+      - type: bind
+        source: /home/zahiri/data/wordpress
+        target: /var/www/html
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+
+  nginx:
+    build: ./requirements/nginx/
+    container_name: nginx
+    restart: always
+    env_file: .env
+    volumes:
+      - type: bind
+        source: /home/zahiri/data/wordpress
+        target: /var/www/html
+        read_only: true
+    depends_on:
+      - wordpress
+    networks:
+      - inception
+    ports:
+      - "443:443"
+
 networks:
   inception:
     name: "inception"
     driver: bridge
+
