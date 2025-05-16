@@ -70,3 +70,15 @@ Password
 Database	
 
 Permanent login
+
+
+
+"service redis-server  status
+redis-server is not running ... failed!
+root@7f99deb8266d:/# service redis-server  start 
+Starting redis-server: 
+*** FATAL CONFIG FILE ERROR (Redis 6.0.16) ***
+Reading the configuration file, at line 260
+>>> 'logfile /var/log/redis/redis-server.log'
+Can't open the log file: Permission denied
+failed"

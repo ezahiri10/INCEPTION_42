@@ -2,6 +2,10 @@
 
 
 
+s="yassine";
+
+
+
 service mariadb start
 
 

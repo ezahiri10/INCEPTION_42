@@ -2,7 +2,7 @@ all : build
 
 build :
 	@echo "Building the containers..."
-	docker compose up -d --build
+	docker compose up -d
 	@echo "Containers are up and running"
 
 
@@ -36,3 +36,6 @@ fclean :
 	sudo rm -rf /var/lib/mysql /var/www/html /var/log/nginx /var/log/mysql
 
 	echo "✅ System cleaned"
+	docker compose down -v
+	docker system prune -af --volumes
+

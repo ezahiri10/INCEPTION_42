@@ -45,6 +45,11 @@ wp user create "${WP_USER_NAME}" "${WP_USER_EMAIL}" \
     --role="${WP_USER_ROLE}" \
     --allow-root #change U by A XXX
 
+wp plugin install redis-cache --activate --allow-root
+wp config set WP_REDIS_HOST redis --allow-root
+wp config set WP_REDIS_PORT 6379 --raw --allow-root
+wp redis enable --allow-root
+
 chown -R www-data:www-data /var/www/html #XXX
 chmod 755 -R /var/www/html #XXX
 

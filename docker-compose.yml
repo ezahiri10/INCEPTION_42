@@ -44,6 +44,24 @@ services:
       ports:
         - "8080:8080"
 
+    redis:
+      build: ./requirements/bonusX/redis/ 
+      container_name: redis
+      restart: always
+      env_file: .env
+      networks:
+        - inception
+    
+    static_website:
+      build: ./requirements/bonusX/static_website/
+      container_name: static_website
+      restart: always
+      env_file: .env
+      networks:
+        - inception
+      ports:
+        - "3000:3000"
+
 volumes:
   wordpress_volume:
     name: "wordpress_volume"
