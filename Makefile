@@ -1,7 +1,25 @@
-all : clean
+all : build
+
+build :
+	@echo "Building the containers..."
+	docker compose up -d --build
+	@echo "Containers are up and running"
+
 
 
 clean :
+	@echo "Cleaning up the containers..."
+	docker compose down
+	@echo "Containers are stopped and removed"
+	@echo "Cleaning up the volumes..."
+	docker volume rm $(shell docker volume ls -q)
+	@echo "Volumes are removed"
+	@echo "Cleaning up the networks..."
+	docker network prune -f
+	@echo "Networks are removed"
+	@echo "Cleanup completed"
+
+fclean :
 	docker compose down -v
 	docker system prune -af --volumes
 	sudo rm -rf  /home/zahiri/data/wordpress/*

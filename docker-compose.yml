@@ -1,6 +1,5 @@
-version: '3.8'
 
-services:
+services: 
     mariadb:
       build: ./requirements/mariadb/
       container_name: mariadb
@@ -34,9 +33,20 @@ services:
         - inception
       ports:
         - "443:443"
+    
+    adminer:
+      build: ./requirements/bonusX/adminer/
+      container_name: adminer
+      restart: always
+      env_file: .env
+      networks:
+        - inception
+      ports:
+        - "8080:8080"
+
 volumes:
   wordpress_volume:
-    # name: "wordpress_volume"
+    name: "wordpress_volume"
     driver: local
     driver_opts:
       type: none
@@ -44,7 +54,7 @@ volumes:
       device: /home/zahiri/data/wordpress
   
   mariadb_volume:
-    # name: "mariadb_volume"
+    name: "mariadb_volume"
     driver: local
     driver_opts:
       type: none
