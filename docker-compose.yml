@@ -35,7 +35,7 @@ services:
         - "443:443"
     
     adminer:
-      build: ./requirements/bonusX/adminer/
+      build: ./requirements/bonus/adminer/
       container_name: adminer
       restart: always
       env_file: .env
@@ -45,7 +45,7 @@ services:
         - "8080:8080"
 
     redis:
-      build: ./requirements/bonusX/redis/ 
+      build: ./requirements/bonus/redis/
       container_name: redis
       restart: always
       env_file: .env
@@ -53,14 +53,25 @@ services:
         - inception
     
     static_website:
-      build: ./requirements/bonusX/static_website/
+      build: ./requirements/bonus/static_website/
       container_name: static_website
       restart: always
-      env_file: .env
       networks:
         - inception
       ports:
         - "3000:3000"
+
+    portainer:
+      build: ./requirements/bonus/portainer/
+      container_name: portainer
+      restart: always
+      ports:
+        - "9000:9000"
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - portainer_data:/data
+      networks:
+        - inception
 
 volumes:
   wordpress_volume:
@@ -78,7 +89,12 @@ volumes:
       type: none
       o: bind
       device: /home/zahiri/data/mariadb
-  
+  portainer_data:
+    driver: local
+    driver_opts:
+     type: none
+     o: bind
+     device: /home/zahiri/data/portainer
 networks:
   inception:
     name: "inception"

@@ -82,3 +82,48 @@ Reading the configuration file, at line 260
 >>> 'logfile /var/log/redis/redis-server.log'
 Can't open the log file: Permission denied
 failed"
+
+
+
+
+
+
+Uptime Kuma
+
+Status Pages
+Dashboard
+
+0% NGINX
+NGINX
+
+https://ezahiri.42.fr/
+3m ago
+now
+Check every 30 seconds
+Down
+Response
+
+(Current)
+N/A
+Avg. Response
+
+(24-hour)
+N/A
+Uptime
+
+(24-hour)
+0%
+Uptime
+
+(30-day)
+0%
+Status	DateTime	Message
+Down	2025-05-17 07:02:05	getaddrinfo ENOTFOUND ezahiri.42.fr
+
+
+
+
+Advanced
+Certificate Expiry Notification
+Ignore TLS/SSL error for HTTPS websites
+Upside Down Mode
