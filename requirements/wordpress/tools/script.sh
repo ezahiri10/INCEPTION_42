@@ -12,7 +12,7 @@ cd /var/www/html
 
 chmod -R 755 /var/www/html
 
-sed -i '36 s/\/run\/php\/php7.4-fpm.sock/9000/' /etc/php/7.4/fpm/pool.d/www.conf #XXX
+sed -i '36 s/\/run\/php\/php7.4-fpm.sock/9000/' /etc/php/7.4/fpm/pool.d/www.conf
 
 until mariadb -h mariadb -P 3306 -u "${MYSQL_USER_NAME}" -p"${MYSQL_USER_PASS}" -e \
     "SELECT 1;" &> /dev/null; do
@@ -43,15 +43,14 @@ wp core install \
 wp user create "${WP_USER_NAME}" "${WP_USER_EMAIL}" \
     --user_pass="${WP_USER_PASS}" \
     --role="${WP_USER_ROLE}" \
-    --allow-root #change U by A XXX
+    --allow-root 
 
 wp plugin install redis-cache --activate --allow-root
 wp config set WP_REDIS_HOST redis --allow-root
 wp config set WP_REDIS_PORT 6379 --raw --allow-root
 wp redis enable --allow-root
 
-chown -R www-data:www-data /var/www/html #XXX
-chmod 755 -R /var/www/html #XXX
-
-mkdir -p /run/php #XXX
-/usr/sbin/php-fpm7.4 -F #XXX
+chown -R www-data:www-data /var/www/html
+chmod 755 -R /var/www/html 
+mkdir -p /run/php 
+/usr/sbin/php-fpm7.4 -F 
