@@ -14,7 +14,7 @@ cd /var/www/html
 sed -i '36 s/\/run\/php\/php7.4-fpm.sock/9000/' /etc/php/7.4/fpm/pool.d/www.conf
 
 until mariadb -h mariadb -P 3306 -u "${MYSQL_USER_NAME}" -p"${MYSQL_USER_PASS}" -e \
-    "SELECT 1;" &> /dev/null; do
+    "SELECT "HELLO WORLD!";" &> /dev/null; do
     echo "Waiting for MariaDB to be ready..."
     sleep 3
 done

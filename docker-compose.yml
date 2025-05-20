@@ -89,6 +89,7 @@ volumes:
       o: bind
       device: /home/zahiri/data/mariadb
   portainer_data:
+    name: "portainer_data"
     driver: local
     driver_opts:
      type: none
