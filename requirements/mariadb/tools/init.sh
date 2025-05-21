@@ -14,4 +14,4 @@ mysql -u root -e "FLUSH PRIVILEGES;"
 
 mysqladmin shutdown -u root
 
-mysqld --bind-address=0.0.0.0 --port=3306 --user=root
+exec mysqld --bind-address=0.0.0.0 --port=3306 --user=root

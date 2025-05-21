@@ -18,15 +18,14 @@ until mariadb -h mariadb -P 3306 -u "${MYSQL_USER_NAME}" -p"${MYSQL_USER_PASS}" 
     echo "Waiting for MariaDB to be ready  $treis ..."
     sleep 3
     treis=$((treis + 1))
-     if [ "$treis" -ge 10 ]; 
-     then
-        echo "Mariadb is still not Ready " 
+    if [ "$treis" -ge 20 ]; 
+    then
+        echo "Mariadb is still not Ready "
         exit 1
-     fi
+    fi
 done
 
 echo "MariaDB is up!"
-
 
 wp core download --allow-root
 
@@ -36,17 +35,18 @@ wp config create \
 
 wp core install \
     --url="${DOMAIN_NAME}" --title="${WP_TITLE}" --admin_user="${WP_ADMIN_NAME}" --admin_password="${WP_ADMIN_PASS}" --admin_email="${WP_ADMIN_EMAIL}" \
-    --allow-root 
+    --allow-root
 
 wp user create "${WP_USER_NAME}" "${WP_USER_EMAIL}" --user_pass="${WP_USER_PASS}" --role="${WP_USER_ROLE}" \
     --allow-root 
 
 wp plugin install redis-cache --activate --allow-root
 wp config set WP_REDIS_HOST redis --allow-root
-wp config set WP_REDIS_PORT 6379 --raw --allow-root
+wp config set WP_REDIS_PORT 6379  --allow-root
 wp redis enable --allow-root 
 
 chown -R www-data:www-data /var/www/html
 chmod 755 -R /var/www/html 
-mkdir -p /run/php 
+mkdir -p /run/php
+
 /usr/sbin/php-fpm7.4 -F 
