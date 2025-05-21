@@ -1,6 +1,6 @@
 FROM    debian:bullseye
 
-RUN     apt-get update -y && apt-get install curl -y
+RUN     apt-get update && apt-get install curl -y
    
 
 RUN curl -L https://github.com/portainer/portainer/releases/download/2.9.3/portainer-2.9.3-linux-amd64.tar.gz -o /tmp/portainer.tar.gz \
