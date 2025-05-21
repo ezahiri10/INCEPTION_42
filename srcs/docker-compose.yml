@@ -1,6 +1,6 @@
 services: 
     mariadb:
-      image: mariadb:ezahiri
+      image: mariadb:tag
       build: ./requirements/mariadb/
       container_name: mariadb
       restart: always
@@ -10,7 +10,7 @@ services:
       networks:
         - inception
     wordpress:
-      image: wordpress:ezahiri
+      image: wordpress:tag
       build: ./requirements/wordpress/
       container_name: wordpress
       restart : always
@@ -22,7 +22,7 @@ services:
       networks:
         - inception
     nginx:
-      image: nginx:ezahiri
+      image: nginx:tag
       build: ./requirements/nginx/
       container_name : nginx
       restart: always
@@ -37,7 +37,7 @@ services:
         - "443:443"
     
     adminer:
-      image: adminer:ezahiri
+      image: adminer:tag
       build: ./requirements/bonus/adminer/
       container_name: adminer
       restart: always
@@ -48,7 +48,7 @@ services:
         - "8080:8080"
 
     redis:
-      image: redis:ezahiri
+      image: redis:tag
       build: ./requirements/bonus/redis/
       container_name: redis
       restart: always
@@ -57,7 +57,7 @@ services:
         - inception
     
     static_website:
-      image: static_website:ezahiri
+      image: static_website:tag
       build: ./requirements/bonus/static_website/
       container_name: static_website
       restart: always
@@ -67,7 +67,7 @@ services:
         - "3000:3000"
 
     portainer:
-      image: portainer:ezahiri
+      image: portainer:tag
       build: ./requirements/bonus/portainer/
       container_name: portainer
       restart: always
@@ -86,7 +86,7 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/ezahiri/data/wordpress
+      device: /home/${LOGIN}/data/wordpress
   
   mariadb_volume:
     name: "mariadb_volume"
@@ -94,14 +94,14 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/ezahiri/data/mariadb
+      device: /home/${LOGIN}/data/mariadb
   portainer_data:
     name: "portainer_data"
     driver: local
     driver_opts:
      type: none
      o: bind
-     device: /home/ezahiri/data/portainer
+     device: /home/${LOGIN}/data/portainer
 networks:
   inception:
     name: "inception"
