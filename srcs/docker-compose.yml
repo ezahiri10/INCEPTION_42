@@ -86,7 +86,7 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/zahiri/data/wordpress
+      device: /home/ezahiri/data/wordpress
   
   mariadb_volume:
     name: "mariadb_volume"
@@ -94,14 +94,14 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/zahiri/data/mariadb
+      device: /home/ezahiri/data/mariadb
   portainer_data:
     name: "portainer_data"
     driver: local
     driver_opts:
      type: none
      o: bind
-     device: /home/zahiri/data/portainer
+     device: /home/ezahiri/data/portainer
 networks:
   inception:
     name: "inception"
