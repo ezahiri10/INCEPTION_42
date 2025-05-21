@@ -1,5 +1,6 @@
 services: 
     mariadb:
+      image: mariadb:ezahiri
       build: ./requirements/mariadb/
       container_name: mariadb
       restart: always
@@ -9,6 +10,7 @@ services:
       networks:
         - inception
     wordpress:
+      image: wordpress:ezahiri
       build: ./requirements/wordpress/
       container_name: wordpress
       restart : always
@@ -20,6 +22,7 @@ services:
       networks:
         - inception
     nginx:
+      image: nginx:ezahiri
       build: ./requirements/nginx/
       container_name : nginx
       restart: always
@@ -34,6 +37,7 @@ services:
         - "443:443"
     
     adminer:
+      image: adminer:ezahiri
       build: ./requirements/bonus/adminer/
       container_name: adminer
       restart: always
@@ -44,6 +48,7 @@ services:
         - "8080:8080"
 
     redis:
+      image: redis:ezahiri
       build: ./requirements/bonus/redis/
       container_name: redis
       restart: always
@@ -52,6 +57,7 @@ services:
         - inception
     
     static_website:
+      image: static_website:ezahiri
       build: ./requirements/bonus/static_website/
       container_name: static_website
       restart: always
@@ -61,6 +67,7 @@ services:
         - "3000:3000"
 
     portainer:
+      image: portainer:ezahiri
       build: ./requirements/bonus/portainer/
       container_name: portainer
       restart: always
