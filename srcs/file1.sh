@@ -30,3 +30,4 @@ docker image prune -f
 # Final message
 echo "Cleanup complete!"
 
+docker system prune --all -f
