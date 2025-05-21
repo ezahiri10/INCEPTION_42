@@ -8,16 +8,9 @@ build :
 
 
 clean :
-	@echo "Cleaning up the containers..."
 	docker compose down
-	@echo "Containers are stopped and removed"
-	@echo "Cleaning up the volumes..."
 	docker volume rm $(shell docker volume ls -q) || true
-	@echo "Volumes are removed"
-	@echo "Cleaning up the networks..."
 	docker network prune -f
-	@echo "Networks are removed"
-	@echo "Cleanup completed"
 
 fclean :
 	docker compose down -v

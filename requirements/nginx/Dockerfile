@@ -9,8 +9,6 @@ RUN openssl req -x509 -nodes  -newkey rsa \
     -out /etc/nginx/ssl/nginx.crt \
     -subj "/C=MO/ST=KH/O=42/OU=42/CN=ezahiri.42.fr"
 
-RUN rm -f /etc/nginx/nginx.conf
-
 COPY ./tools/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 443
