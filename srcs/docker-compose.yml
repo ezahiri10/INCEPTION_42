@@ -1,0 +1,108 @@
+services: 
+    mariadb:
+      image: mariadb:tag
+      build: ./requirements/mariadb/
+      container_name: mariadb
+      restart: always
+      env_file: .env
+      volumes:
+        - mariadb_volume:/var/lib/mysql
+      networks:
+        - inception
+    wordpress:
+      image: wordpress:tag
+      build: ./requirements/wordpress/
+      container_name: wordpress
+      restart : always
+      env_file: .env
+      volumes:
+        - wordpress_volume:/var/www/html
+      depends_on :
+        - mariadb
+      networks:
+        - inception
+    nginx:
+      image: nginx:tag
+      build: ./requirements/nginx/
+      container_name : nginx
+      restart: always
+      env_file: .env
+      volumes:
+        - wordpress_volume:/var/www/html
+      depends_on :
+        - wordpress
+      networks :
+        - inception
+      ports:
+        - "443:443"
+    
+    adminer:
+      image: adminer:tag
+      build: ./requirements/bonus/adminer/
+      container_name: adminer
+      restart: always
+      env_file: .env
+      networks:
+        - inception
+      ports:
+        - "8080:8080"
+
+    redis:
+      image: redis:tag
+      build: ./requirements/bonus/redis/
+      container_name: redis
+      restart: always
+      env_file: .env
+      networks:
+        - inception
+    
+    static_website:
+      image: static_website:tag
+      build: ./requirements/bonus/static_website/
+      container_name: static_website
+      restart: always
+      networks:
+        - inception
+      ports:
+        - "3000:3000"
+
+    portainer:
+      image: portainer:tag
+      build: ./requirements/bonus/portainer/
+      container_name: portainer
+      restart: always
+      ports:
+        - "9000:9000"
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - portainer_data:/data
+      networks:
+        - inception
+
+volumes:
+  wordpress_volume:
+    name: "wordpress_volume"
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${LOGIN}/data/wordpress
+  
+  mariadb_volume:
+    name: "mariadb_volume"
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${LOGIN}/data/mariadb
+  portainer_data:
+    name: "portainer_data"
+    driver: local
+    driver_opts:
+     type: none
+     o: bind
+     device: /home/${LOGIN}/data/portainer
+networks:
+  inception:
+    name: "inception"
+    driver: bridge
